@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "240134785611",
+    "project_id": "tkecom",
+    "storage_bucket": "tkecom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240134785611:android:9fab88eb65fea8f4515bce",
+        "android_client_info": {
+          "package_name": "site.tunckankilic.tuncecom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfG1yl1uXXRgNI2QtbW9ZO6y4JV7SErB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
