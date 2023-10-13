@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tuncecom/models/diy_model.dart';
 import 'package:tuncecom/screens/diy/diy_details.dart';
+import 'package:tuncecom/widgets/app_name_text.dart';
 
 class DIYScreen extends StatelessWidget {
   static const routeName = "/diy";
@@ -13,7 +14,10 @@ class DIYScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("DIY Screen"),
+        title: AppNameTextWidget(
+          text: "DIY Screen",
+          fontSize: 20,
+        ),
       ),
       body: FutureBuilder<QuerySnapshot>(
         future: FirebaseFirestore.instance.collection('diyCollection').get(),
@@ -29,39 +33,61 @@ class DIYScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: products.length,
               itemBuilder: (context, index) {
+                DIYModel? productItem;
                 List<dynamic> productDetails = [];
-                final productData =
-                    products[index].data() as Map<String, dynamic>;
-                productDetails.add(productData);
-                final productId = productData['id'];
-                productDetails.add(productId);
-                final productName = productData['title'];
-                productDetails.add(productName);
-                final productDescription = productData['description'];
-                productDetails.add(productDescription);
-                final productImagePath = productData['imagePath'];
-                productDetails.add(productName);
-                final productSteps = List<String>.from(productData['steps']);
-                final productItem = DIYModel(
-                  description: productDescription,
-                  id: productId,
-                  imageUrl: productImagePath,
-                  steps: productSteps,
-                  title: productName,
-                );
+                for (var i = 0; i < products.length; i++) {
+                  final productData =
+                      products[index].data() as Map<String, dynamic>;
+                  productDetails.add(productData);
+                  final productId = productData['id'];
+                  productDetails.add(productId);
+                  final productName = productData['title'];
+                  productDetails.add(productName);
+                  final productDescription = productData['description'];
+                  productDetails.add(productDescription);
+                  final productImagePath = productData['imagePath'];
+                  productDetails.add(productName);
+                  final productSteps = List<String>.from(productData['steps']);
+                  productItem = DIYModel(
+                    description: productDescription,
+                    id: productId,
+                    imageUrl: productImagePath,
+                    steps: productSteps,
+                    title: productName,
+                  );
+                }
 
-                return ListTile(
-                  title: Text(productName),
-                  leading: SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: Image.network(productImagePath),
-                  ),
-                  onTap: () async {
-                    // Ürün detaylarına gitmek için tıklama işlemini burada yapabilirsiniz
-                    log('navigateToProductDetails fonksiyonu çağrıldı.');
-                    await navigateToProductDetails(context, productItem);
+                return GestureDetector(
+                  onTap: () {
+                    navigateToProductDetails(context, productItem!);
                   },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                          height: 300,
+                          child: Image.network(productItem!.imageUrl),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 130.0),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              productItem.title,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 );
               },
             );

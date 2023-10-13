@@ -28,8 +28,11 @@ class RouteGenerator {
           builder: (context) => const RootScreen(),
         );
       case ProductDetailsScreen.routeName:
+        String productId = routeSettings.arguments as String;
         return MaterialPageRoute(
-          builder: (context) => const ProductDetailsScreen(),
+          builder: (context) => ProductDetailsScreen(
+            productId: productId,
+          ),
         );
       case WishlistScreen.routeName:
         return MaterialPageRoute(

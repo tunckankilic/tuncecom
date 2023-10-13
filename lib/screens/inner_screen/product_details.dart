@@ -1,10 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:tuncecom/widgets/title_text.dart';
 
+import '../../consts/app_colors.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/products_provider.dart';
 import '../../services/my_app_functions.dart';
@@ -14,7 +17,11 @@ import '../../widgets/subtitle_text.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   static const routeName = "/ProductDetailsScreen";
-  const ProductDetailsScreen({super.key});
+  final String productId;
+  const ProductDetailsScreen({
+    Key? key,
+    required this.productId,
+  }) : super(key: key);
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -25,28 +32,29 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final productsProvider = Provider.of<ProductsProvider>(context);
-    String? productId = ModalRoute.of(context)!.settings.arguments as String?;
-    final getCurrProduct = productsProvider.findByProdId(productId!);
+    final getCurrProduct = productsProvider.findByProdId(widget.productId);
     final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            // Navigator.canPop(context) ? Navigator.pop(context) : null;
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 20,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                AppColors.lightScaffoldColor,
+                Colors.white38,
+                AppColors.lightScaffoldColor,
+              ],
+            ),
           ),
         ),
-        // automaticallyImplyLeading: false,
-        title: const AppNameTextWidget(
+        leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(Icons.arrow_back)),
+        title: AppNameTextWidget(
           fontSize: 20,
-          text: "Product Details",
+          text: getCurrProduct == null
+              ? "Product Details"
+              : getCurrProduct.productTitle,
         ),
       ),
       body: getCurrProduct == null

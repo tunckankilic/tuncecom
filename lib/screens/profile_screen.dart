@@ -77,12 +77,15 @@ class _ProfileScreenState extends State<ProfileScreen>
             ),
           ),
         ),
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            AssetsManager.shoppingCart,
+        leading: const Icon(Icons.ac_unit),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+            },
+            icon: const Icon(Icons.logout_outlined),
           ),
-        ),
+        ],
         title: const AppNameTextWidget(
           fontSize: 20,
           text: "Profile Screen",

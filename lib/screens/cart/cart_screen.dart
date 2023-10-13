@@ -9,6 +9,7 @@ import 'package:tuncecom/screens/cart/cart_widget.dart';
 import 'package:tuncecom/screens/loading_manager.dart';
 import 'package:tuncecom/services/assets_manager.dart';
 import 'package:tuncecom/services/my_app_functions.dart';
+import 'package:tuncecom/widgets/app_name_text.dart';
 import 'package:tuncecom/widgets/empty_bag.dart';
 import 'package:tuncecom/widgets/title_text.dart';
 
@@ -71,12 +72,13 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                 ),
-                leading: Icon(
-                  Icons.ac_unit,
+                leading: const Icon(
+                  Icons.shopping_bag,
                   color: Colors.white,
                 ),
-                title: TitlesTextWidget(
-                    label: "Cart (${cartProvider.getCartitems.length})"),
+                title: AppNameTextWidget(
+                    fontSize: 20,
+                    text: "Cart (${cartProvider.getCartitems.length})"),
                 actions: [
                   IconButton(
                     onPressed: () {
