@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDfG1yl1uXXRgNI2QtbW9ZO6y4JV7SErB4',
-    appId: '1:240134785611:android:9fab88eb65fea8f4515bce',
+    appId: '1:240134785611:android:6bdd1d69f6f3ef94515bce',
     messagingSenderId: '240134785611',
     projectId: 'tkecom',
     storageBucket: 'tkecom.appspot.com',
@@ -59,10 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBvA_Iq55eOjeoWG8XeJRO-Pv5MrpH_nPo',
-    appId: '1:240134785611:ios:3b141909e9c9d922515bce',
+    appId: '1:240134785611:ios:52a9663f9c1e6f4e515bce',
     messagingSenderId: '240134785611',
     projectId: 'tkecom',
     storageBucket: 'tkecom.appspot.com',
-    iosBundleId: 'site.tunckankilic.tuncecom',
+    iosBundleId: 'site.tunckankilic.tuncecommerce',
   );
+
 }
